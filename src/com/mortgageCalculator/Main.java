@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        final byte MONTHS_IN_YEAR = 12;
+        final byte PERCENT = 100;
 
         // Taking input from the user
         Scanner scanner = new Scanner(System.in);
@@ -14,21 +16,21 @@ public class Main {
         int principal = scanner.nextInt();
 
         System.out.print("Annual Interest Rate: ");
-        double annualInterest = scanner.nextDouble();
+        float annualInterest = scanner.nextFloat();
 
         System.out.print("Period (Years): ");
-        byte period = scanner.nextByte();
+        byte years = scanner.nextByte();
 
 
         // Mortgage calculation
         // 1. Monthly interest rate
-        double monthlyInterest = annualInterest / 12 / 100;
+        float monthlyInterest = annualInterest / MONTHS_IN_YEAR / PERCENT;
 
         // 2. Number of payments
-        int payments = period * 12;
+        int numberOfPayments = years * MONTHS_IN_YEAR;
 
         // 3. Mortgage calculation
-        double mortgage = principal * ((monthlyInterest * Math.pow(1 + monthlyInterest, payments)) / (Math.pow(1 + monthlyInterest, payments) - 1));
+        double mortgage = principal * ((monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1));
 
 
         // Outputting the result to the user
