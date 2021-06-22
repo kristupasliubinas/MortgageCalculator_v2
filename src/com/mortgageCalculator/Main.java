@@ -7,46 +7,31 @@ public class Main {
 
     public static void main(String[] args) {
         // Taking input from the user
-        Scanner scanner = new Scanner(System.in);
-
-        int principal = 0;
-        while (true) {
-            System.out.print("Principal (£1K - £1M): ");
-            principal = scanner.nextInt();
-            if (principal >= 1000 && principal <= 1_000_000)
-                break;
-            System.out.println("Enter a number between 1,000 and 1,000,000.");
-        }
-
-        float annualInterest = 0;
-        while (true) {
-            System.out.print("Annual Interest Rate: ");
-            annualInterest = scanner.nextFloat();
-            if (annualInterest > 0 && annualInterest <= 30)
-                break;
-            System.out.println("Enter a value greater than 0 and less than or equal to 30.");
-        }
-
-        byte years = 0;
-        while (true) {
-            System.out.print("Period (Years): ");
-            years = scanner.nextByte();
-            if (years >= 1 && years <= 30)
-                break;
-            System.out.println("Enter a value between 1 and 30.");
-        }
-
+        int principal = (int) readNumber("Principal (£1K - £1M): ", 1000, 1_000_000);
+        float annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
+        byte years = (byte) readNumber("Period (Years): ", 1, 30);
 
         // Mortgage calculation
         double mortgage = calculateMortgage(principal, annualInterest, years);
 
-
         // Outputting the result to the user
         // 1. Formatting as a currency
         String formattedOutput = NumberFormat.getCurrencyInstance().format(mortgage);
-
         // 2. Output
         System.out.println("Mortgage: " + formattedOutput);
+    }
+
+    public static double readNumber(String prompt, double lowerLimit, double upperLimit) {
+        Scanner scanner = new Scanner(System.in);
+        double value;
+        while (true) {
+            System.out.print(prompt);
+            value = scanner.nextDouble();
+            if (value >= lowerLimit && value <= upperLimit)
+                break;
+            System.out.println("Enter a value between " + lowerLimit + " and " + upperLimit);
+        }
+        return value;
     }
 
     public static double calculateMortgage(int principal, float annualInterest, byte years) {
