@@ -11,14 +11,15 @@ public class Main {
         float annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
         byte years = (byte) readNumber("Period (Years): ", 1, 30);
 
-        // Mortgage calculation
+        printMortgage(principal, annualInterest, years);
+        printPaymentSchedule(principal, annualInterest, years);
+    }
+
+    public static void printMortgage(int principal, float annualInterest, byte years) {
         double mortgage = calculateMortgage(principal, annualInterest, years);
 
-        // Outputting the result to the user
         System.out.println("\nMORTGAGE\n--------");
         System.out.println("Monthly Payments: " + formatAsCurrency(mortgage));
-        System.out.println("\nPAYMENT SCHEDULE\n----------------");
-        printPaymentSchedule(principal, annualInterest, years);
     }
 
     public static void printPaymentSchedule(int principal, float annualInterest, byte years) {
@@ -26,6 +27,7 @@ public class Main {
         short numberOfPayments = calculateNumberOfPayments(years);
         double remainingBalance;
 
+        System.out.println("\nPAYMENT SCHEDULE\n----------------");
         for (int paymentsMade = 1; paymentsMade <= numberOfPayments; paymentsMade++) {
             remainingBalance = principal * (Math.pow((1 + monthlyInterest), numberOfPayments) - Math.pow((1 + monthlyInterest), paymentsMade)) / (Math.pow((1 + monthlyInterest), numberOfPayments) - 1);
             System.out.println(formatAsCurrency(remainingBalance));
