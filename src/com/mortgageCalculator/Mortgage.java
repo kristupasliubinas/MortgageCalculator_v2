@@ -14,6 +14,13 @@ public class Mortgage {
         setAnnualInterest(annualInterest);
         setYears(years);
     }
+    // Overloaded constructor which reads the values of principal, annualInterest and years itself - no need to provide them when calling the constructor
+    public Mortgage(){
+        this(
+                (int) Console.readNumber("Principal (£1K - £1M): ", 1000, 1_000_000),
+                (float) Console.readNumber("Annual Interest Rate: ", 1, 30),
+                (byte) Console.readNumber("Period (Years): ", 1, 30));
+    }
 
 
     public double calculateMortgage() {
