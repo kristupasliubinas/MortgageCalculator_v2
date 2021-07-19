@@ -1,6 +1,5 @@
 package com.mortgageCalculator;
 
-import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Main {
@@ -11,32 +10,11 @@ public class Main {
         float annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
         byte years = (byte) readNumber("Period (Years): ", 1, 30);
 
-        var mortgage = new Mortgage(principal, annualInterest, years);
+        var mortgage1 = new Mortgage(principal, annualInterest, years);
+        var console1 = new Console(mortgage1);
 
-        printMortgage(mortgage);
-        printPaymentSchedule(mortgage);
-    }
-
-    public static void printMortgage(Mortgage mortgage) {
-        System.out.println("\nMORTGAGE\n--------");
-        System.out.println("Monthly Payments: " + formatAsCurrency(mortgage.calculateMortgage()));
-    }
-
-    public static void printPaymentSchedule(Mortgage mortgage) {
-        float monthlyInterest = mortgage.calculateMonthlyInterest();
-        short numberOfPayments = mortgage.calculateNumberOfPayments();
-        double remainingBalance;
-
-        System.out.println("\nPAYMENT SCHEDULE\n----------------");
-        for (int paymentsMade = 1; paymentsMade <= numberOfPayments; paymentsMade++) {
-            remainingBalance = mortgage.getPrincipal() * (Math.pow((1 + monthlyInterest), numberOfPayments) - Math.pow((1 + monthlyInterest), paymentsMade)) / (Math.pow((1 + monthlyInterest), numberOfPayments) - 1);
-            System.out.println(formatAsCurrency(remainingBalance));
-        }
-    }
-
-    public static String formatAsCurrency(double input) {
-        String formattedOutput = NumberFormat.getCurrencyInstance().format(input);
-        return formattedOutput;
+        console1.printMortgage();
+        console1.printPaymentSchedule();
     }
 
     public static double readNumber(String prompt, double lowerLimit, double upperLimit) {
