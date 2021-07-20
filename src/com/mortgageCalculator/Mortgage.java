@@ -23,19 +23,24 @@ public class Mortgage {
     }
 
 
-    public double calculateMortgage() {
-        float monthlyInterest = calculateMonthlyInterest();
-        short numberOfPayments = calculateNumberOfPayments();
-        double mortgage = principal * ((monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1));
-        return mortgage;
-    }
-
     public float calculateMonthlyInterest() {
         return annualInterest / MONTHS_IN_YEAR / PERCENT;
     }
 
     public short calculateNumberOfPayments() {
         return (short)(years * MONTHS_IN_YEAR);
+    }
+
+    public double calculateMortgage() {
+        float monthlyInterest = calculateMonthlyInterest();
+        short numberOfPayments = calculateNumberOfPayments();
+        return principal * ((monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1));
+    }
+
+    public double calculateRemainingBalance(int paymentsMade) {
+        float monthlyInterest = calculateMonthlyInterest();
+        short numberOfPayments = calculateNumberOfPayments();
+        return principal * (Math.pow((1 + monthlyInterest), numberOfPayments) - Math.pow((1 + monthlyInterest), paymentsMade)) / (Math.pow((1 + monthlyInterest), numberOfPayments) - 1);
     }
 
 

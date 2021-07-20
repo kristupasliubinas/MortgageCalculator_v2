@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
 
         var mortgage1 = new Mortgage();
-        var console1 = new Console(mortgage1);
+        var report1 = new Report(mortgage1);
 
-        console1.printMortgage();
-        console1.printPaymentSchedule();
+        report1.printMortgage();
+        report1.printPaymentSchedule();
     }
 }
