@@ -1,12 +1,13 @@
 package com.mortgageCalculator;
 
 public class Mortgage {
+    // This class is responsible only for CALCULATION concerns
+    private final byte MONTHS_IN_YEAR = 12;
+    private final byte PERCENT = 100;
+
     private int principal;
     private float annualInterest;
     private byte years;
-
-    final private byte MONTHS_IN_YEAR = 12;
-    final private byte PERCENT = 100;
 
 
     public Mortgage(int principal, float annualInterest, byte years) {
@@ -43,6 +44,16 @@ public class Mortgage {
         return principal * (Math.pow((1 + monthlyInterest), numberOfPayments) - Math.pow((1 + monthlyInterest), paymentsMade)) / (Math.pow((1 + monthlyInterest), numberOfPayments) - 1);
     }
 
+    public double[] calculatePaymentSchedule() {
+        short numberOfPayments = calculateNumberOfPayments();
+        double[] paymentSchedule = new double[numberOfPayments];
+
+        for (int paymentsMade = 1; paymentsMade <= numberOfPayments; paymentsMade++)
+            paymentSchedule[paymentsMade - 1] = calculateRemainingBalance(paymentsMade);
+
+        return paymentSchedule;
+    }
+
 
     private void setYears(byte years) {
         if (years <= 0)
@@ -60,17 +71,5 @@ public class Mortgage {
         if (principal <= 0)
             throw new IllegalArgumentException("Principal cannot be 0 or less");
         this.principal = principal;
-    }
-
-    private byte getYears() {
-        return years;
-    }
-
-    private float getAnnualInterest() {
-        return annualInterest;
-    }
-
-    public int getPrincipal() {
-        return principal;
     }
 }
